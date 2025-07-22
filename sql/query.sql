@@ -1,0 +1,42 @@
+-- Jawaban Pertanyaan 2: Query untuk Total Angsuran Jatuh Tempo per 14 Agustus 2024
+SELECT 
+    k.KONTRAK_NO,
+    k.CLIENT_NAME,
+    SUM(ja.ANGSURAN_PER_BULAN) as "TOTAL ANGSURAN JATUH TEMPO"
+FROM KONTRAK k
+JOIN JADWAL_ANGSURAN ja ON k.KONTRAK_NO = ja.KONTRAK_NO
+WHERE k.CLIENT_NAME = 'SUGUS' 
+    AND ja.TANGGAL_JATUH_TEMPO <= '2024-08-14'
+GROUP BY k.KONTRAK_NO, k.CLIENT_NAME;
+
+-- Hasil:
+-- KONTRAK NO: AGR00001
+-- CLIENT NAME: SUGUS
+-- TOTAL ANGSURAN JATUH TEMPO: 90,349,000
+
+-- Jawaban Pertanyaan 3: Query untuk Menghitung Denda Keterlambatan
+SELECT 
+    k.KONTRAK_NO,
+    k.CLIENT_NAME,
+    ja.ANGSURAN_KE as "INSTALLMENT NO",
+    CASE 
+        WHEN ja.TANGGAL_JATUH_TEMPO <= '2024-08-14' AND ja.ANGSURAN_KE > 5 
+        THEN DATEDIFF('2024-08-14', ja.TANGGAL_JATUH_TEMPO)
+        ELSE 0 
+    END as "HARI KETERLAMBATAN",
+    CASE 
+        WHEN ja.TANGGAL_JATUH_TEMPO <= '2024-08-14' AND ja.ANGSURAN_KE > 5 
+        THEN ROUND(ja.ANGSURAN_PER_BULAN * 0.001 * DATEDIFF('2024-08-14', ja.TANGGAL_JATUH_TEMPO), 0)
+        ELSE 0 
+    END as "TOTAL DENDA"
+FROM KONTRAK k
+JOIN JADWAL_ANGSURAN ja ON k.KONTRAK_NO = ja.KONTRAK_NO
+WHERE k.CLIENT_NAME = 'SUGUS' 
+    AND ja.ANGSURAN_KE > 5 
+    AND ja.TANGGAL_JATUH_TEMPO <= '2024-08-14'
+ORDER BY ja.ANGSURAN_KE;
+
+
+-- Hasil:
+-- Angsuran ke-6 (jatuh tempo 25 Juni 2024): 50 hari terlambat, denda = 12,907,000 × 0.001 × 50 = 645,350
+-- Angsuran ke-7 (jatuh tempo 25 Juli 2024): 20 hari terlambat, denda = 12,907,000 × 0.001 × 20 = 258,140
