@@ -154,37 +154,38 @@ const CarLoanCalculator: React.FC = () => {
           </Card>
 
           {/* Results */}
-          <Card className='rounded-2xl shadow-xl p-8'>
+          <Card className='rounded-2xl shadow-xl p-8 flex flex-col'>
             <h2 className='text-2xl font-semibold mb-6 flex items-center gap-2'>
               <CreditCard className='text-green-600' />
               Hasil Perhitungan
             </h2>
 
             <div className='space-y-4'>
-              <div className='rounded-lg'>
-                <p className='text-sm'>Down Payment</p>
+              <div className='bg-blue-50 p-4 rounded-lg'>
+                <p className='text-sm text-black'>Down Payment</p>
                 <p className='text-2xl font-bold text-blue-600'>{formatCurrency(results.downPayment)}</p>
               </div>
 
-              <div className='rounded-lg'>
-                <p className='text-sm'>Jumlah Pinjaman</p>
+              <div className='bg-green-50 p-4 rounded-lg'>
+                <p className='text-sm text-black'>Jumlah Pinjaman</p>
                 <p className='text-2xl font-bold text-green-600'>{formatCurrency(results.loanAmount)}</p>
               </div>
 
-              <div className='rounded-lg'>
-                <p className='text-sm'>Angsuran per Bulan</p>
+              <div className='bg-red-50 p-4 rounded-lg'>
+                <p className='text-sm text-black'>Angsuran per Bulan</p>
                 <p className='text-3xl font-bold text-red-600'>{formatCurrency(results.monthlyPayment)}</p>
               </div>
+            </div>
 
-              <div className='grid grid-cols-2 gap-4'>
-                <div className='xp-4 rounded-lg'>
-                  <p className='text-sm'>Total Bulan</p>
-                  <p className='text-xl font-semibold'>{results.totalMonths} bulan</p>
-                </div>
-                <div className='xp-4 rounded-lg'>
-                  <p className='text-sm'>Total Bunga</p>
-                  <p className='text-xl font-semibold'>{formatCurrency(results.totalInterest)}</p>
-                </div>
+            {/* Ini bagian yang akan nempel di bawah */}
+            <div className='grid grid-cols-2 gap-4 mt-auto pt-6'>
+              <div className='p-4 rounded-lg'>
+                <p className='text-sm'>Total Bulan</p>
+                <p className='text-xl font-semibold'>{results.totalMonths} bulan</p>
+              </div>
+              <div className='p-4 rounded-lg'>
+                <p className='text-sm'>Total Bunga</p>
+                <p className='text-xl font-semibold'>{formatCurrency(results.totalInterest)}</p>
               </div>
             </div>
           </Card>
