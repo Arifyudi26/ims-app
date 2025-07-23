@@ -45,7 +45,9 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
       >
         <SubMenu label='Dashboards' icon={<i className='ri-home-smile-line' />}>
           <MenuItem href='/'>Dashboard</MenuItem>
-          <MenuItem href='/CarLoanCalculator'>Car Loan Calculator</MenuItem>
+          <MenuItem href='/car-loan-calculator'>Car Loan Calculator</MenuItem>
+          <MenuItem href='/over-due-installments'>Over due Installments</MenuItem>
+          <MenuItem href='/penalty-calculation'>Penalty Calculation</MenuItem>
         </SubMenu>
       </Menu>
     </ScrollWrapper>
